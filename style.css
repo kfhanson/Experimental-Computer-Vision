@@ -1,0 +1,24 @@
+body{
+    margin: 0;
+    overflow: hidden;
+    background-color: azure;
+}
+
+.container{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.output{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.input{
+    position: absolute;
+}
