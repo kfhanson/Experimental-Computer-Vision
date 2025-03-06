@@ -4,7 +4,7 @@ const canvasContext = canvas.getContext('2d');
 let scene, camera, renderer, controls, model;
 let position = null;
 
-function object() {
+function load3D() {
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     render = new THREE.WebGLRenderer({canvas: canvas, alpha: true});
@@ -90,3 +90,26 @@ hands.setOptions({
 
 hands.onResults(onResults);
 
+const cameras = new Camera(video, {
+    onFrame: async () => {
+        await hands.send({ image: video});
+    },
+    width: 1280,
+    height: 720
+});
+
+function animate() {
+    requestAnimationFrame(animate);
+    if (model) {
+        render.render(scene, camera);
+    }
+}
+
+load3D();
+cameras.start();
+
+window.addEventListener('resize', () => {
+    cameras.aspect = window.innerWidth / window.innerHeight;
+    cameras.updateProjectionMatrix();
+    render.setSize(window.innerWidth, window.innerHeight);
+});
